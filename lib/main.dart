@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kevin_demo/routes.dart';
 import 'package:kevin_demo/routes/home_screen/home_screen.dart';
+import 'package:kevin_demo/routes/login_screen/login_screen.dart';
 import 'package:kevin_demo/routes/parking_location_screen/parking_location_screen.dart';
+import 'package:kevin_demo/routes/signup_screen/signup_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: RouteGenerate.homeScreen,
       onGenerateRoute: RouteGenerate.onGenerate,
-      // home: const HomeScreen(),
+      // home: const SignUpScreen(),
     );
   }
 }

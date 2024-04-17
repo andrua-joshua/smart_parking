@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kevin_demo/routes.dart';
 import 'package:kevin_demo/routes/home_screen/widgets/home_screen_widgets.dart';
 
 
@@ -15,6 +16,7 @@ class MobilePaymentScreen extends StatefulWidget{
 class _mobilePaymentScreenState extends State<MobilePaymentScreen>{
 
   final TextEditingController _controller = TextEditingController();
+  final TextEditingController _pinController = TextEditingController();
 
   @override
   Widget build(BuildContext context){
@@ -47,6 +49,7 @@ class _mobilePaymentScreenState extends State<MobilePaymentScreen>{
                 child:TextFormField(
                 controller: _controller,
                 keyboardType: TextInputType.phone,
+                maxLength: 10,
                 style: const TextStyle(fontSize: 18, color: Colors.white),
                 decoration: const InputDecoration(
                   border: InputBorder.none,
@@ -58,7 +61,19 @@ class _mobilePaymentScreenState extends State<MobilePaymentScreen>{
                 child: SizedBox()),
               SimpleButton(
                 label: "Confirm", 
-                onTap: (){}),
+                onTap: (){
+                  showDialog(
+                    context: context, 
+                    builder: (context){
+                      return const SimpleDialog(
+                        insetPadding: EdgeInsets.all(0),
+                        backgroundColor: Color.fromARGB(255, 27, 26, 26),
+                        children: [
+                          PinDialogWidget()
+                        ],
+                      );
+                    });
+                }),
               const SizedBox(height: 50,),
             ],
           ),)),

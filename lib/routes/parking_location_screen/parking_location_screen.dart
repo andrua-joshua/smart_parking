@@ -50,7 +50,13 @@ class _mapScreenState extends State<MapScreen>{
               const SizedBox(height: 20,),
               SimpleButton(
                 label: "Book Now", 
-                onTap: () => Navigator.pushNamed(context, RouteGenerate.paymentOptionsScreen)),
+                onTap: () {
+                  if(Data.loggedIn){
+                    Navigator.pushNamed(context, RouteGenerate.paymentOptionsScreen);
+                  }else{
+                    Navigator.pushNamed(context, RouteGenerate.loginScreen);
+                  }
+                  }),
               const SizedBox(height: 20,),
               
             ],

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kevin_demo/routes.dart';
+import 'package:kevin_demo/utils/data.dart';
 
 class HomeTopWidget extends StatelessWidget{
   final String title;
   const HomeTopWidget({super.key, required this.title});
-
+// 1ctn4k4w4
 
   @override
   Widget build(BuildContext context){
@@ -12,15 +13,18 @@ class HomeTopWidget extends StatelessWidget{
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          width: 50,
-          height: 50,
+          width: 40,
+          height: 40,
           decoration: BoxDecoration(
             borderRadius:  BorderRadius.circular(15),
+            image: const DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage("assets/images/ic_launcher.png")),
             color: Colors.white
           ),
         ),
       const SizedBox(width: 10,),
-      Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),),
+      Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white),),
       const SizedBox(width: 10,),
       IconButton(
         onPressed:(){} , 
@@ -31,7 +35,7 @@ class HomeTopWidget extends StatelessWidget{
             borderRadius:  BorderRadius.circular(15),
             color: const Color.fromARGB(255, 47, 46, 46)
           ),
-          child: const Center(child: Icon(Icons.qr_code_scanner_sharp, color: Colors.white,),),
+          child: const Center(child: Icon(Icons.car_crash, color: Colors.white, size: 30,),),
         ),)
       ],
     );
@@ -152,8 +156,8 @@ class MapBottomWidget extends StatelessWidget{
             child: Row(
               children: [
                 Container(
-                  height: 80,
-                  width: 80,
+                  height: 70,
+                  width: 70,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.black,
@@ -163,10 +167,38 @@ class MapBottomWidget extends StatelessWidget{
                 Expanded(
                   child:Column(
                     children: [
-                      Text(parkingName, style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w500),),
+                      Text(parkingName, style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),),
                       Text(parkinglocation, style: const TextStyle(color: Color.fromARGB(255, 150, 150, 150), fontSize: 18, fontWeight: FontWeight.w500),)
                     ],
-                  ) )
+                  ) ),
+                const SizedBox(width: 10,),
+                IconButton(
+                  onPressed: (){
+                    showDialog(
+                    context: context, 
+                    // barrierDismissible: false,
+                    builder: (context){
+                      return SimpleDialog(
+                        insetPadding: EdgeInsets.all(010),
+                        backgroundColor: Color.fromARGB(255, 27, 26, 26),
+                        children: [
+                            const Center(child:Text("Contact", style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: Colors.white),)),
+                            const SizedBox(height: 10,),
+                            const Center(child:Text("MTN: 07783647382", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white),)),
+                            const Center(child:Text("Airtel: 0758937533", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white),)),
+                            const SizedBox(height: 10,),
+                            SimpleButton(
+                              label: "Okay", 
+                              onTap: (){
+                                Navigator.pop(context);
+                              })     
+                          
+                        ],
+                      );
+                    });
+                  }, 
+                  icon: const Icon(Icons.info, color: Colors.white, size: 30,),
+                  )
               ],
             ),
           ),
@@ -238,5 +270,90 @@ class SimpleButton extends StatelessWidget{
   }
 
 }
+
+
+
+
+class PinDialogWidget extends StatefulWidget{
+  const PinDialogWidget({super.key});
+
+  @override
+  _pinDialogWidget createState ()=> _pinDialogWidget();
+}
+
+
+class _pinDialogWidget extends State<PinDialogWidget>{
+
+  final TextEditingController controller = TextEditingController(); 
+
+  @override
+  Widget build(BuildContext context){
+    
+    return Container(
+      height: 230,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        // color: const Color.fromARGB(255, 49, 48, 48)
+      ),
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        children: [
+          const Text("Enter Pin", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white),),
+          const SizedBox(height: 10,),
+          Container(
+                // constraints: const BoxConstraints.expand(height: 50),
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: const Color.fromARGB(255, 47, 47, 47)
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: TextFormField(
+                  controller: controller,
+                  keyboardType: TextInputType.number,
+                  maxLength: 4,
+                  style: const TextStyle(fontSize: 17, color: Colors.white),
+                  decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      // hintText: "",
+                      hintStyle: TextStyle(color: Color.fromARGB(255, 148, 147, 147))
+                  ),
+                ),
+              ),
+
+              const Expanded(child: SizedBox()),
+              SimpleButton(
+                label: "Send", 
+                onTap: (){
+                  Data.parkingSites[Data.currentPark]["availableSlots"] = Data.parkingSites[Data.currentPark]["availableSlots"]-1;
+                  Navigator.pop(context);
+                  showDialog(
+                    context: context, 
+                    barrierDismissible: false,
+                    builder: (context){
+                      return SimpleDialog(
+                        insetPadding: EdgeInsets.all(010),
+                        backgroundColor: Color.fromARGB(255, 27, 26, 26),
+                        children: [
+                            const Center(child:Text("Transaction succesful", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.white),)),
+                            const SizedBox(height: 10,),
+                            SimpleButton(
+                              label: "Okay", 
+                              onTap: (){
+                                Navigator.pushNamed(context, RouteGenerate.homeScreen);
+                              })     
+                          
+                        ],
+                      );
+                    });
+                })
+        ],
+      ),
+    );
+  }
+}
+
+
+
 
 

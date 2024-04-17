@@ -29,7 +29,7 @@ class _homeScreenState extends State<HomeScreen>{
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 30,),
-              const HomeTopWidget(title: 'John Doe',),
+              const HomeTopWidget(title: 'Smart Parking',),
               const SizedBox(height: 30,),
               const Text("Find Your", style: TextStyle(fontSize: 30, color: Colors.white),),
               const Text("Parking Space", style: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold),),

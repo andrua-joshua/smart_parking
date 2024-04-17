@@ -1,5 +1,11 @@
 class Data{
 
+  static bool loggedIn = false;
+  static Map<String, String> user = {
+    "username":"",
+    "gmail":"",
+    "password":""
+  };
   static int currentPark = 0;
   static List<Map<String, dynamic>> parkingSites = [
     {
@@ -31,6 +37,15 @@ class Data{
       "parkingLocation":"Makerere University",
       "availableSlots": 50,
       "pricePerHour": 1,
-    }
+    },
+
+    {
+      "parkingName": "UICT Nakawa",
+      "parkingLocation":"Nakawa Port Bell",
+      "availableSlots": 50,
+      "pricePerHour": 1,
+    },
+
+    
   ];
 }
